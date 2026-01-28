@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Progressively simplifying visual content while preserving the image's photorealistic nature.">
+  <meta name="keywords" content="Diffusion, Relighting">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Progressive Photorealistic Abstraction</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <!-- <link rel="stylesheet" href="./static/css/bulma-slider.min.css"> -->
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">Progressive Photorealistic Abstraction</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=iw&user=gHyhr2MAAAAJ">Adi Rosenthal</a><sup>1, 2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=iw&user=8hQ7SMYAAAAJ">Dana Berman</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.cs.huji.ac.il/~yedid/">Yedid Hoshen</a><sup>* 1, 3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://faculty.runi.ac.il/arik/site/index.asp">Ariel Shamir</a><sup>* 1, 2</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Google</span>
+            <span class="author-block"><sup>2</sup>Reichman University</span>
+            <span class="author-block"><sup>3</sup>Hebrew University of Jerusalem</span>
+          </div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block"><sup>*</sup>Denotes equal advising</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://www.arxiv.org/abs/TODO"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://www.arxiv.org/abs/TODO"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=TODO"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <!-- Dataset Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+                </span> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!--/ Teaser Carousel -->
+<section class="hero teaser is-light">
+  <div class="container is-max-desktop">
+    <div class="hero-body" width="100%">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+            <!--Main Image-->
+            <img src="./static/images/example_carousel/sabers_duel/sabers_duel_off.jpg" alt="original">
+            <!--Image in Overlay-->
+           <div id="nadav" class="carousel-overlay" data-src="./static/images/example_carousel/sabers_duel/sabers_duel_on.jpg" alt="Overlay 1">
+          </div>
+        </div>
+        <div class="item">
+          <img src="./static/images/example_carousel/nightstand/original_off.jpg" alt="original">
+          <div class="carousel-overlay" data-src="./static/images/example_carousel/nightstand/res_on.jpg">
+          </div>
+        </div>
+        <div class="item">
+          <img src="./static/images/example_carousel/andrii-solok-JV4rEhhbun8-unsplash/cond.jpg" alt="original">
+          <div class="carousel-overlay" data-src="./static/images/example_carousel/andrii-solok-JV4rEhhbun8-unsplash/result.jpg">
+          </div>
+        </div>
+        <div class="item">
+          <img src="./static/images/example_carousel/cat_paper_lantern/cond.jpg" alt="original">
+          <div class="carousel-overlay" data-src="./static/images/example_carousel/cat_paper_lantern/result.jpg">
+          </div>
+        </div>
+        <div class="item">
+              <img src="./static/images/example_carousel/seaside/sea_side_input.jpg" alt="original">
+              <div class="carousel-overlay" data-src="./static/images/example_carousel/seaside/sea_side_relit.jpg">
+              </div>
+        </div>
+        <div class="item">
+          <img src="./static/images/example_carousel/huy-phan-LEVRaos2Ero-unsplash/cond.jpg" alt="original">
+          <div class="carousel-overlay" data-src="./static/images/example_carousel/huy-phan-LEVRaos2Ero-unsplash/result.jpg">
+          </div>
+        </div>
+        <div class="item">
+          <img src="./static/images/example_carousel/openImages/grandma/original.jpg" alt="original">
+          <div class="carousel-overlay" data-src="./static/images/example_carousel/openImages/grandma/res.jpg">
+          </div>
+        </div>
+        <div class="item">
+          <img src="./static/images/example_carousel/lofi/cond.jpg" alt="original">
+          <div class="carousel-overlay" data-src="./static/images/example_carousel/lofi/result.jpg">
+          </div>
+        </div>
+        <div class="item">
+          <img src="./static/images/example_carousel/openImages/illuminet_ex/original.jpg" alt="original">
+          <div class="carousel-overlay" data-src="./static/images/example_carousel/openImages/illuminet_ex/res_on.jpg">
+          </div>
+        </div>
+        <div class="item">
+          <img src="./static/images/example_carousel/monkey/monkey_org.jpg" alt="original">
+          <div class="carousel-overlay" data-src="./static/images/example_carousel/monkey/monkey_separate.jpg">
+          </div>
+        </div>
+        <div class="item">
+          <img src="./static/images/example_carousel/walking_sign/cond.png" alt="original">
+          <div class="carousel-overlay" data-src="./static/images//example_carousel/walking_sign/result.png">
+          </div>
+        </div>
+        <div class="item">
+          <img src="./static/images/example_carousel/openImages/hotel_couch/original.jpg" alt="original">
+          <div class="carousel-overlay" data-src="./static/images/example_carousel/openImages/hotel_couch/off.jpg">
+          </div>
+        </div>
+        <div class="item">
+          <img src="./static/images/park_sign/003.jpg" alt="original">
+          <div class="carousel-overlay" data-src="./static/images/park_sign/000.jpg">
+          </div>
+        </div>
+        <div class="item">
+          <img src="./static/images/example_carousel/stairs_env/original.jpg" alt="original">
+          <div class="carousel-overlay" data-src="./static/images/example_carousel/stairs_env/res.jpg">
+          </div>
+        </div>
+        <div class="item">
+          <img src="./static/images/example_carousel/Adam ElsheimerCeresatHecubaHome/cond.jpg" alt="original">
+          <div class="carousel-overlay" data-src="./static/images/example_carousel/Adam ElsheimerCeresatHecubaHome/result.jpg">
+          </div>
+        </div>
+        <div class="item">
+          <img src="./static/images/example_carousel/agata-ciosek-ffWlui8hytA-unsplash/cond.jpg" alt="original">
+          <div class="carousel-overlay" data-src="./static/images/example_carousel/agata-ciosek-ffWlui8hytA-unsplash/result.jpg">
+          </div>
+        </div>
+        <div class="item">
+          <img src="./static/images/example_carousel/india_dining/original.jpg" alt="original">
+          <div class="carousel-overlay" data-src="./static/images/example_carousel/india_dining/res_on.jpg">
+          </div>
+        </div>
+        <div class="item">
+          <img src="./static/images/example_carousel/statue_spot/cond.jpg" alt="original">
+          <div class="carousel-overlay" data-src="./static/images/example_carousel/statue_spot/result.jpg">
+          </div>
+        </div>
+        <div class="item">
+          <img src="./static/images/example_carousel/zachary-weathers-UAqMjr4Ow7s-unsplash/cond.jpg" alt="original">
+          <div class="carousel-overlay" data-src="./static/images/example_carousel/zachary-weathers-UAqMjr4Ow7s-unsplash/result.jpg">
+          </div>
+        </div>
+        <div class="item">
+          <img src="./static/images/example_carousel/bhshantanu_9/cond.jpg" alt="original">
+          <div class="carousel-overlay" data-src="./static/images/example_carousel/bhshantanu_9/result.jpg">
+          </div>
+        </div>
+        <div class="item">
+          <img src="./static/images/example_carousel/iiw_8112/cond.jpg" alt="original">
+          <div class="carousel-overlay" data-src="./static/images/example_carousel/iiw_8112/result.jpg">
+          </div>
+        </div>
+        <div class="item">
+          <img src="./static/images/example_carousel/trumpet_sign/cond.jpg" alt="original">
+          <div class="carousel-overlay" data-src="./static/images/example_carousel/trumpet_sign/result.jpg">
+          </div>
+        </div>
+      </div>
+      <div class="note">
+          <svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="TouchAppIcon">
+            <path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74m9.84 4.63-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74c-3.6-.76-3.54-.75-3.67-.75-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38"></path>
+          </svg>
+          <span>Click on any image to see results</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!--/Abstract -->
+<section id="abstract" class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column container is-three-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Traditional image abstraction relies on Non-Photorealistic Rendering (NPR) to transform photographs into stylized sketches, cartoons, or paintings. 
+            While these techniques capture a scene's semantic essence, they sacrifice photographic realism.
+          </p>
+          <p>
+            We propose a new perspective on abstraction: preserving an image's photorealistic nature while progressively simplifying its visual content. 
+            We introduce Subtractive Abstraction, a framework that iteratively reduces scene complexity. By detecting, ranking, removing, and inpainting elements, our system generates a sequence of intermediate results that remain plausible as natural photographs.
+          </p>
+          <p>
+            This approach integrates automated semantic analysis with controlled simplification, leveraging modern Vision-Language Models (VLMs) and generative inpainting.
+            We drive the process with an iterative Select-Remove-Verify algorithm, employing a VLM for object selection and removal alongside a dedicated classifier for plausibility verification. We subsequently distill this iterative pipeline into an image-to-video generation model. 
+            Beyond synthesizing minimal compositions from complex scenes, our method facilitates practical applications including content-aware decluttering, layering, and aesthetic enhancement.
+          </p>
+          <p>
+            Our work provides a first hint that realism and abstraction can coexist.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-three-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe width="1319" height="742" src="https://www.youtube.com/embed/todo" title="Progressive Photorealistic Abstraction: Progressively simplifying visual content while preserving the image's photorealistic nature." frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+<!--/Interactive Demo -->
+<section id="demo" class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container is-centered has-text-centered">
+      <h2 class="title is-3">Interactive Demo</h2>
+      <div class="container is-three-fifths has-text-justified" style="width: 60%;">
+        <p>
+          <i>LightLab</i> enables a rich set of lighting controls that can be used sequentially to create complex lighting effects.
+          You can adjust the intensity and color of each light source by moving the sliders.
+        </p>
+      </div>
+      <div id="demoCarousel" class="carousel slide" data-bs-theme="dark" data-touch="false">
+        <div class="carousel-inner">
+          <div class="content carousel-item active" data-bs-pause="hover" data-bs-interval="99999999">
+            <div class = "inner-div">
+              <div class = "centered-div">
+                <div class="demo-overlay">
+                  <svg class="touch-icon svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="TouchAppIcon" style="left: 80.1%; top: 18.2%;">
+                    <path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74m9.84 4.63-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74c-3.6-.76-3.54-.75-3.67-.75-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38"></path>
+                  </svg>
+                  <div class="note" style="position: absolute; left: 83.1%; top: 24.5%;">
+                    <span>Drag the slider to adjust light intensity</span>
+                  </div>
+                  <svg class="touch-icon svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="TouchAppIcon" style="left: 25.447%; top: 50.271%;">
+                    <path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74m9.84 4.63-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74c-3.6-.76-3.54-.75-3.67-.75-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38"></path>
+                  </svg>
+                  <div class="note" style="position: absolute; left: 28.2%; top: 54%;">
+                    <span>Drag the slider to adjust light intensity</span>
+                  </div>
+                </div>
+                <img class="demo_img"  src="./static/images/example_two_lamps/000_000.jpg">
+                <div class="slider_group" data-base="./static/images/example_two_lamps/">
+                    <div class="demo_slider_container" data-x=".225" data-y=".50" >
+                        <input type="range" min="0" max="5" value="0" class="slider" data-lamp="0" data-type="power" data-multiplier="20">
+                    </div>
+                    <div class="demo_slider_container" data-x=".77" data-y=".18" >
+                        <input type="range" min="0" max="5" value="0" class="slider" data-lamp="1" data-type="power" data-multiplier="20">
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="demo_carousel_item content carousel-item" data-bs-pause="hover" data-bs-interval="99999999">
+            <div class = "inner-div">
+              <div class = "centered-div">
+                <img class="demo_img"  src="./static/images/tatami_seq_sr/007_006_000.jpg">
+                <div class="slider_group" data-base="./static/images/tatami_seq_sr/">
+                    <div class="demo_slider_container" data-x=".42" data-y=".4" >
+                        <input type="range" min="0" max="7" value="7" class="slider" data-lamp="0" data-type="power" data-multiplier="1">
+                    </div>
+                    <div class="demo_slider_container" data-x=".85" data-y=".02" >
+                        <input type="range" min="0" max="3" value="3" class="slider" data-lamp="1" data-type="power" data-multiplier="2">
+                    </div>
+                    <div class="demo_slider_container" data-x=".77" data-y=".45" >
+                        <input type="range" min="0" max="2" value="0" class="slider" data-lamp="2" data-type="power" data-multiplier="2">
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="demo_carousel_item content carousel-item" data-bs-pause="hover" data-bs-interval="99999999">
+            <div class = "inner-div">
+              <div class = "centered-div">
+                <div class="virtual-container" data-source-dir="./static/images/carnaval/">
+                  <img class="mainImage vir_demo_img" src="./static/images/carnaval/002_cond.jpg" alt="Original Image">
+                  <button class="overlay-button" data-img-name="left.jpg" data-x="0.13" data-y="0.27"></button>
+                  <button class="overlay-button" data-img-name="face.jpg" data-x="0.46" data-y="0.48"></button>
+                  <button class="overlay-button" data-img-name="right.jpg" data-x="0.93" data-y="0.13"></button>
+                  <div class="vir_slider_group" data-base="./static/images/carnaval/">
+                    <div class="vir_demo_slider_container" data-x=".45" data-y=".2" style="display: block; left: 45%; top: 10%; width: 9%">
+                      <input type="range" min="0" max="2" value="2" class="slider vir_demo_slider" data-lamp="1" data-type="power" data-multiplier="1">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="demo_carousel_item content carousel-item" data-bs-pause="hover" data-bs-interval="99999999">
+            <div class = "inner-div">
+              <div class = "centered-div">
+                <img class="demo_img"  src="./static/images/example_lego_jazzclub/000_000_000_009.jpg">
+                <div class="slider_group" data-base="./static/images/example_lego_jazzclub/">
+                    <div class="demo_slider_container" data-x=".787" data-y=".64" >
+                        <input type="range" min="0" max="3" value="0" class="slider" data-lamp="0" data-type="power" data-multiplier="24">
+                    </div>
+                    <div class="demo_slider_container" data-x=".33" data-y=".28" >
+                        <input type="range" min="0" max="3" value="0" class="slider" data-lamp="2" data-type="power" data-multiplier="30">
+                    </div>
+                    <div class="demo_slider_container" data-x=".48" data-y=".60" >
+                        <input type="range" min="0" max="3" value="0" class="slider" data-lamp="3" data-type="power" data-multiplier="34">
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev my_carousel-control" type="button" data-bs-target="#demoCarousel" data-bs-slide="prev" style="height:30%; width:60px; top:50%; transform: translateY(-50%)">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next my_carousel-control" type="button" data-bs-target="#demoCarousel" data-bs-slide="next" style="height:30%; width:60px; top:50%; transform: translateY(-50%)">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Approach. -->
+<section id="Approach" class="hero section">
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title is-3">Approach</h2>
+    <!-- <div class="columns is-centered">
+      <div class="column is-four-fifths has-text-justified">
+        <img src="./static/images/psotProcessing.png" class="approach-img" loading="lazy" alt="Approach">
+        <p>
+          Given a pair of real (raw) photograph pairs, we first isolate the target light change.
+          Bottom row. For synthetic data, we render each light component separately. 
+          These disentangled components are then scaled and combined to create parameterized sequences of images in linear color space.
+          We use both a sequence consistent tone-mapping strategy and tone-map each image individually to SDR.
+        </p>
+      </div>
+    </div> -->
+<div class="columns is-centered">
+  <div class="column is-four-fifths has-text-justified">
+    
+    <!-- PART 1: Search-Based Trajectory -->
+    <!-- Image -->
+    <!-- Text for Part 1 -->
+    <p style="margin-bottom: 60px;">
+      Our framework operates in two stages to achieve effective progressive photorealistic abstraction:
+    </p>
+    <p style="margin-bottom: 40px;">
+      <strong>Stage I (Search-Based Trajectory)</strong> is an iterative, closed-loop pipeline. 
+      A VLM-based <em>Planner</em> identifies scene elements for removal based on semantic rank. 
+      The <em>Robust Execution</em> module performs inpainting (Generate, Align, Blend), 
+      while a Classifier Edit Verification step ensures the edit preserves photorealism before 
+      accepting the result (<i>I<sub>k+1</sub></i>).
+    </p>
+    <img src="./images/Search-Based Trajectory.png" 
+         class="interpolation-image" 
+         alt="Stage I: Search-Based Trajectory" 
+         style="width: 100%; margin-bottom: 15px;">
+    
+    <!-- PART 2: Distillation -->
+    <!-- Image -->
+
+    <!-- Text for Part 2 -->
+    <p>
+      <strong>Stage II (Distillation)</strong> distills these verified trajectories into a 
+      feed-forward video generation model. We fine-tune a pre-trained I2V model (Wan 2.2) 
+      using LoRA on the dataset of valid trajectories. For visualization purposes, we depict 
+      the training objective in pixel space, though the actual fine-tuning is performed in 
+      the latent Diffusion objective. During <em>Inference</em>, the model predicts subtractive 
+      stop-motion videos from a single input image (<i>I<sub>0</sub></i>).
+    </p>
+    <img src="./images/Distillation.png" 
+         class="interpolation-image" 
+         alt="Stage II: Distillation" 
+         style="width: 100%; margin-bottom: 15px;">
+    
+  </div>
+</div>
+</section>
+
+
+<!--/Controls -->
+<section class="hero section is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <!-- Intensity. -->
+      <div class="column">
+        <!-- <div class="content"> -->
+          <h2 class="title is-3 centered-text">Light Intensity</h2>
+          </h2>
+          <p>
+            <i>Lightswitch</i> gives parametric control over the intensity of light sources.
+            <!-- You can adjust the intensity of each light source by moving the sliders. -->
+            Note how light phenonmena are consistent across different intensities, allowing for interactive editing.   
+          </p>
+          <div id="intensityCarousel" class="carousel slide" data-bs-theme="dark" data-touch="false">
+            <div class="carousel-inner">
+              <div class="content carousel-item active" data-bs-pause="hover" data-bs-interval="99999999">
+                <div class = "inner-div">
+                  <div class = "centered-div">
+                    <img class="demo_img"  src="./static/images/kyoto/001.jpg" loading="lazy"> <br> <br>
+                    <div class="slider_group" data-base="./static/images/kyoto/">
+                        <div class="demo_slider_container" data-x=".43" data-y=".10" >
+                            <input type="range" min="1" max="4" value="1" class="slider" data-lamp="0" data-type="power" data-multiplier="1" style="accent-color: darkred;">
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="content carousel-item" data-bs-pause="hover" data-bs-interval="99999999">
+                <div class = "inner-div">
+                  <div class = "centered-div">
+                    <img class="demo_img"  src="./static/images/dark_living_room/000.jpg" loading="lazy"> <br> <br>
+                    <div class="slider_group" data-base="./static/images/dark_living_room/">
+                        <div class="demo_slider_container" data-x=".43" data-y=".10" >
+                            <input type="range" min="0" max="4" value="0" class="slider" data-lamp="0" data-type="power" data-multiplier="2">
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="content carousel-item" data-bs-pause="hover" data-bs-interval="99999999">
+                <div class = "inner-div">
+                  <div class = "centered-div">
+                    <img class="demo_img"  src="./static/images/wallace/wallace_light_orange_010.jpg" loading="lazy"> <br> <br>
+                    <div class="slider_group" data-base="./static/images/wallace/wallace_light_orange_">
+                        <div class="demo_slider_container" data-x=".745" data-y=".4">
+                            <input type="range" min="0" max="9" value="5" class="slider" data-lamp="0" data-type="power" data-multiplier="2">
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev my_carousel-control" type="button" data-bs-target="#intensityCarousel" data-bs-slide="prev" style="height:30%; width:60px; top:50%; transform: translateY(-50%)">
+              <span class="carousel-control-prev-icon white_carousel-control" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next my_carousel-control" type="button" data-bs-target="#intensityCarousel" data-bs-slide="next" style="height:30%; width:60px; top:50%; transform: translateY(-50%)">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+      </div>
+      <!--/ Intensity. -->
+
+      <!-- Color. -->
+      <div class="column">
+        <h2 class="centered-text title is-3">Color Control</h2>
+        <div class="columns is-centered">
+          <div class="column">
+            <p>
+              Our method can create colored illumination according to user input.
+              Use the colored slider to adjust the color of the light source.
+            </p>
+            <div id="colorCarousel" class="carousel slide" data-bs-theme="dark" data-touch="false">
+              <div class="carousel-inner">
+                <div class="content carousel-item" data-bs-pause="hover" data-bs-interval="99999999">
+                  <div class = "inner-div">
+                    <div class = "centered-div">
+                      <img class="demo_img"  src="./static/images/example_bedroom_openimages_two_lamps/6_6.jpg" loading="lazy"> <br> <br>
+                      <div class="slider_group" data-base="./static/images/example_bedroom_openimages_two_lamps/">
+                          <div class="demo_slider_container" data-x=".09" data-y=".42" >
+                              <input type="range" min="0" max="6" value="6" class="slider" data-lamp="0" data-type="color">
+                          </div>
+                          <div class="demo_slider_container" data-x=".65" data-y=".31" >
+                              <input type="range" min="0" max="6" value="6" class="slider" data-lamp="1" data-type="color">
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="demo_carousel_item content carousel-item active" data-bs-pause="hover" data-bs-interval="99999999">
+                  <div class = "inner-div">
+                    <div class = "centered-div">
+                      <img class="demo_img"  src="./static/images/exmaple_chibi/000.jpg" loading="lazy"> <br> <br>
+                      <div class="slider_group" data-base="./static/images/exmaple_chibi/">
+                          <div class="demo_slider_container" data-x=".167" data-y=".42" >
+                              <input type="range" min="0" max="5" value="0" class="slider" data-lamp="0" data-type="power" data-multiplier="24">
+                          </div>
+                          <div class="demo_slider_container" data-x=".182" data-y=".36" >
+                              <input type="range" min="0" max="3" value="3" class="slider" data-lamp="0" data-type="color" data-multiplier="2">
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="carousel-control-prev my_carousel-control" type="button" data-bs-target="#colorCarousel" data-bs-slide="prev" style="height:30%; width:60px; top:50%; transform: translateY(-50%)">
+                <span class="carousel-control-prev-icon white_carousel-control" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next my_carousel-control" type="button" data-bs-target="#colorCarousel" data-bs-slide="next" style="height:30%; width:60px; top:50%; transform: translateY(-50%)">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/ Color. -->
+    </div>
+  </div>
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <!-- Virtual Poiintlight. -->
+      <div class="column">
+          <h2 class="title is-3 centered-text">Virtual Point Light</h2>
+          <p>
+            By transfering knowlege from synthetic 3D renders, <i>LightLab</i> can insert virtual point lights (with no geometry) into the scene.
+            Click the circle to light a point.
+          </p>
+          <div id="vrtualCarousel" class="carousel slide" data-bs-theme="dark" data-touch="false">
+            <div class="carousel-inner">
+              <div class="content carousel-item active" data-bs-pause="hover" data-bs-interval="99999999">
+                <div class="virtual-container" data-source-dir="./static/images/virtual/statue/">
+                  <img class="mainImage" src="./static/images/virtual/statue/0.jpg" loading="lazy" alt="Original Image">  <!-- Initial image -->
+                  <button class="overlay-button" data-img-name="1.jpg" data-x="0.38" data-y="0.60"></button>
+                  <button class="overlay-button" data-img-name="2.jpg" data-x="0.572" data-y="0.3925"></button>
+                  <button class="overlay-button" data-img-name="3.jpg" data-x="0.794" data-y="0.162"></button>
+                  <button class="overlay-button" data-img-name="4.jpg" data-x="0.678" data-y="0.915"></button>
+                </div>
+              </div>
+              <div class="content carousel-item" data-bs-pause="hover" data-bs-interval="99999999">
+                <div class="virtual-container" data-source-dir="./static/images/virtual/chess/">
+                  <img class="mainImage" src="./static/images/virtual/chess/chess_cond.jpg" loading="lazy" alt="Original Image">  <!-- Initial image -->
+                  <button class="overlay-button" data-img-name="1.jpg" data-x="0.15" data-y="0.3"></button>
+                  <button class="overlay-button" data-img-name="2.jpg" data-x="0.35" data-y="0.3"></button>
+                  <button class="overlay-button" data-img-name="3.jpg" data-x="0.60" data-y="0.3"></button>
+                  <button class="overlay-button" data-img-name="4.jpg" data-x="0.85" data-y="0.3"></button>
+                </div>
+              </div>
+              <div class="content carousel-item" data-bs-pause="hover" data-bs-interval="99999999">
+                <div class="virtual-container" data-source-dir="./static/images/virtual/otagi/">
+                  <img class="mainImage" src="./static/images/virtual/otagi/otagi_cond.jpg" loading="lazy" alt="Original Image">  <!-- Initial image -->
+                  <button class="overlay-button" data-img-name="1.jpg" data-x="0.15" data-y="0.3"></button>
+                  <button class="overlay-button" data-img-name="2.jpg" data-x="0.35" data-y="0.3"></button>
+                  <button class="overlay-button" data-img-name="3.jpg" data-x="0.60" data-y="0.3"></button>
+                  <button class="overlay-button" data-img-name="4.jpg" data-x="0.85" data-y="0.3"></button>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev my_carousel-control" type="button" data-bs-target="#vrtualCarousel" data-bs-slide="prev" style="height:30%; width:60px; top:50%; transform: translateY(-50%)">
+              <span class="carousel-control-prev-icon white_carousel-control" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next my_carousel-control" type="button" data-bs-target="#vrtualCarousel" data-bs-slide="next" style="height:30%; width:60px; top:50%; transform: translateY(-50%)">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+      </div>
+      <!--/ Intensity. -->
+
+      <!-- Ambient. -->
+      <div class="column">
+        <h2 class="centered-text title is-3">Ambient Light</h2>
+        <div class="columns is-centered">
+          <div class="column">
+            <p>
+              Disentangling the target light from the ambient light allows enables control over light that enters through windows, which is not easilly controlled physically.
+              <!-- Note how light emitted from visible source is preserved in this transformation. -->
+            </p>
+            <div id="ambientCarousel" class="carousel slide" data-bs-theme="dark" data-touch="false">
+              <div class="carousel-inner">
+                <!-- <div class="content carousel-item" data-bs-pause="hover" data-bs-interval="99999999">
+                  <div class = "inner-div">
+                    <div class = "centered-div">
+                      <img class="mainImage demo_img"  src="./static/images/env/daria-s-89-K3D5ZF08-unsplash/008.jpg" loading="lazy"> <br> <br>
+                      <div class="slider_group" data-base="./static/images/env/daria-s-89-K3D5ZF08-unsplash/">
+                        <div class="demo_slider_container" data-x=".445" data-y=".10" >
+                          <input type="range" min="0" max="8" value="8" class="slider" data-lamp="0" data-type="power" data-multiplier="1">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+                <div class="content carousel-item active" data-bs-pause="hover" data-bs-interval="99999999">
+                  <div class = "inner-div">
+                    <div class = "centered-div">
+                      <img class="mainImage demo_img"  src="./static/images/env/bill-kucera-QkS8YlYctQY-unsplash/006.jpg" loading="lazy"> <br> <br>
+                      <div class="slider_group" data-base="./static/images/env/bill-kucera-QkS8YlYctQY-unsplash/">
+                        <div class="demo_slider_container" data-x=".445" data-y=".10" >
+                          <input type="range" min="0" max="6" value="6" class="slider" data-lamp="0" data-type="power" data-multiplier="1">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="content carousel-item" data-bs-pause="hover" data-bs-interval="99999999">
+                  <div class = "inner-div">
+                    <div class = "centered-div">
+                      <img class="mainImage demo_img"  src="./static/images/env/temple/007.jpg" loading="lazy"> <br> <br>
+                      <div class="slider_group" data-base="./static/images/env/temple/">
+                        <div class="demo_slider_container" data-x=".445" data-y=".10" >
+                          <input type="range" min="0" max="7" value="7" class="slider" data-lamp="0" data-type="power" data-multiplier="1">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+              </div>
+              <button class="carousel-control-prev my_carousel-control" type="button" data-bs-target="#ambientCarousel" data-bs-slide="prev" style="height:30%; width:60px; top:50%; transform: translateY(-50%)">
+                <span class="carousel-control-prev-icon white_carousel-control" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next my_carousel-control" type="button" data-bs-target="#ambientCarousel" data-bs-slide="next" style="height:30%; width:60px; top:50%; transform: translateY(-50%)">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/ Color. -->
+    </div>
+  </div>
+  <div class="container is-max-desktop">
+    <div class="column">
+      <h2 class="centered-text title is-3">Physically Plausible Lighting</h2>
+      <p>
+        <b>Left.</b> The input sequence was created by capturing photographs of a turned-off lamp rotated around the polygon dog.
+        <b>Middle, Right.</b> Inference results of our method and a zoom-in on the dog.
+        Note how self occlusions on the different faces, and dogs shadow match the lamps position and angle.
+      </p>
+        <div class="has-text-centered header-container">
+          <h5>Input</h5> <h5>Result</h5> <h5>Zoom-In</h5>
+        </div>
+      <video id="replay-video" controls loop autoplay="autoplay" muted="" preload="" playsinline="" width="75%">
+        <source src="./static/images/full_dog_stopmotion.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="Acknowledgements">
+  <div class="container is-max-desktop content has-text-centered">
+    <h2 class="centered-text title is-3">Acknowledgements</h2>
+    <p>We thank Kiran Murthy for his valuable contribution and guidance in tone-mapping linear color images. We are also very grateful to Alberto García García, Erroll Wood, Jesús Pérez and Iker J. de los Mozos, for their help and contributions to the synthetic rendering effort. Finally, we also thank Dani Lischinski, Andrey Voynov, Bar Cavia, Tal Reiss, Daniel Winter, Yarden Frenkel, Asaf Shul, Matan Cohen, Julian Iseringhausen, Francois Bleibel, Chloe LeGendre, Dani Cohen-Or and Or Patashnik for discussion and their support that aided and improved our work.</p>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content has-text-justified">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{lightlab@Magar2025,
+      Author = {Nadav Magar and Amir Hertz and Eric Tabellion and Yael Pritch and Alex Rav-Acha and Ariel Shamir and Yedid Hoshen},
+      Title = {LightLab: Controlling Light Sources in Images with Diffusion Models},
+      Year = {2025},
+      Eprint = {arXiv:2505.09608},
+      Doi = {10.1145/3721238.3730696},
+      }</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-justified">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Website source code based on the <a href="https://github.com/nerfies/nerfies.github.io/tree/main">Nerfies</a> project page. If you want to reuse their source code, please credit them appropriately.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
