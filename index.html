@@ -7,7 +7,7 @@
     content="Progressively simplifying visual content while preserving the image's photorealistic nature.">
   <meta name="keywords" content="Diffusion, Relighting">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Progressive Photorealistic Abstraction</title>
+  <title>Progressive Photorealistic Simplification</title>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
@@ -95,7 +95,7 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-2 publication-title">Progressive Photorealistic Abstraction</h1>
+            <h1 class="title is-2 publication-title">Progressive Photorealistic Simplification</h1>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
                 <a href="https://scholar.google.com/citations?hl=iw&user=gHyhr2MAAAAJ">Adi Rosenthal</a><sup>1, 2</sup>,
@@ -142,7 +142,7 @@
                 </span>
                 <!-- Video Link. -->
                 <span class="link-block">
-                  <a href="https://www.youtube.com/watch?v=wT3l9bWPZa4"
+                  <a href="https://www.youtube.com/watch?v=UwtZo6n5Su4"
                     class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="fab fa-youtube"></i>
@@ -186,28 +186,30 @@
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              Traditional image abstraction relies on Non-Photorealistic Rendering (NPR) to transform photographs into
-              stylized sketches, cartoons, or paintings.
-              While these techniques capture a scene's semantic essence, they sacrifice photographic realism.
+              Existing image simplification techniques often rely on Non-Photorealistic Rendering (NPR), transforming 
+              photographs into stylized sketches, cartoons, or paintings.
+              While effective at reducing visual complexity, such approaches typically sacrifice photographic realism.
+              In this work, we explore a complementary direction: simplifying images while preserving their 
+              photorealistic appearance.
             </p>
             <p>
-              We propose a new perspective on abstraction: preserving an image's photorealistic nature while
-              progressively simplifying its visual content.
-              We introduce Subtractive Abstraction, a framework that iteratively reduces scene complexity. By detecting,
-              ranking, removing, and inpainting elements, our system generates a sequence of intermediate results that
-              remain plausible as natural photographs.
+              We introduce progressive semantic image simplification, a framework that iteratively reduces scene complexity 
+              by removing and inpainting elements in a controlled manner. At each step, the resulting image remains a 
+              plausible natural photograph. Our method combines semantic understanding with generative editing, leveraging 
+              Vision-Language Models (VLMs) to identify and prioritize elements for removal, and a learned verifier to 
+              ensure photorealism and coherence throughout the process. This is implemented via an iterative 
+              \emph{Select–Remove–Verify} pipeline that produces high-quality simplification trajectories.
             </p>
             <p>
-              This approach integrates automated semantic analysis with controlled simplification, leveraging modern
-              Vision-Language Models (VLMs) and generative inpainting.
-              We drive the process with an iterative Select-Remove-Verify algorithm, employing a VLM for object
-              selection and removal alongside a dedicated classifier for plausibility verification. We subsequently
-              distill this iterative pipeline into an image-to-video generation model.
-              Beyond synthesizing minimal compositions from complex scenes, our method facilitates practical
-              applications including content-aware decluttering, layering, and aesthetic enhancement.
+              To improve efficiency, we further distill this process into an image-to-video generation model that directly 
+              predicts coherent simplification sequences from a single input image. Beyond generating cleaner and more 
+              focused compositions, our approach enables applications such as content-aware decluttering, semantic layer 
+              decomposition, and interactive editing.
             </p>
             <p>
-              Our work provides a first hint that realism and abstraction can coexist.
+              More broadly, our work suggests that simplification through structured content removal can serve as a practical 
+              mechanism for guiding visual interpretation within the photorealistic domain, complementing traditional 
+              abstraction methods.
             </p>
           </div>
         </div>
@@ -219,8 +221,8 @@
         <div class="column is-three-fifths">
           <!-- <h2 class="title is-3">Video</h2> -->
           <div class="publication-video">
-            <iframe width="1319" height="742" src="https://www.youtube.com/embed/wT3l9bWPZa4"
-              title="Progressive Photorealistic Abstraction: Progressively simplifying visual content while preserving the image's photorealistic nature."
+            <iframe width="1319" height="742" src="https://www.youtube.com/embed/UwtZo6n5Su4"
+              title="Progressive Photorealistic Simplification: Progressively simplifying visual content while preserving the image's photorealistic nature."
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -520,7 +522,7 @@
           <!-- Image -->
           <!-- Text for Part 1 -->
           <p style="margin-bottom: 20px;">
-            Our framework operates in two stages to achieve effective progressive photorealistic abstraction.
+            Our framework operates in two stages to achieve effective progressive photorealistic Simplification.
           </p>
           <h3 class="title is-4">Stage I - Search-Based Trajectory:</h3>
           <img src="./images/Search-Based Trajectory.png" class="interpolation-image"
@@ -559,7 +561,7 @@
     <div class="container is-max-desktop has-text-centered">
       <h2 class="title is-3">Applications</h2>
       <!-- ... inside Applications Section ... -->
-      <h3 class="title is-4" style="margin-top: 20px; margin-bottom: 10px;">Abstraction</h3>
+      <h3 class="title is-4" style="margin-top: 20px; margin-bottom: 10px;">Interactive Simplification</h3>
 
       <!-- CHANGE ID HERE to 'abstraction-carousel' -->
       <div id="abstraction-carousel" class="carousel1 results-carousel">
@@ -581,7 +583,7 @@
               </video>
               <!-- Notice class="video-slider" (NOT ID) -->
               <input class="video-slider" type="range" min="0" max="100" value="0" style="width:100%; margin-top:8px;">
-              <p class="is-size-7">Drag slider for dynamic abstraction.</p>
+              <p class="is-size-7">Drag slider for dynamic .</p>
             </div>
           </div>
         </div>
@@ -603,7 +605,7 @@
               </video>
               <!-- Notice class="video-slider" (NOT ID) -->
               <input class="video-slider" type="range" min="0" max="100" value="0" style="width:100%; margin-top:8px;">
-              <p class="is-size-7">Drag slider for dynamic abstraction.</p>
+              <p class="is-size-7">Drag slider for dynamic simplification.</p>
             </div>
           </div>
         </div>
@@ -629,7 +631,7 @@
               </video>
               <!-- Notice class="video-slider" (NOT ID) -->
               <input class="video-slider" type="range" min="0" max="100" value="0" style="width:100%; margin-top:8px;">
-              <p class="is-size-7">Drag slider for dynamic abstraction.</p>
+              <p class="is-size-7">Drag slider for dynamic simplification.</p>
             </div>
           </div>
         </div>
@@ -659,7 +661,7 @@
               </video>
               <!-- Notice class="video-slider" (NOT ID) -->
               <input class="video-slider" type="range" min="0" max="100" value="0" style="width:100%; margin-top:8px;">
-              <p class="is-size-7">Drag slider for dynamic abstraction.</p>
+              <p class="is-size-7">Drag slider for dynamic simplification.</p>
             </div>
           </div>
         </div>
@@ -691,7 +693,7 @@
               </video>
               <!-- Notice class="video-slider" (NOT ID) -->
               <input class="video-slider" type="range" min="0" max="100" value="0" style="width:100%; margin-top:8px;">
-              <p class="is-size-7">Drag slider for dynamic abstraction.</p>
+              <p class="is-size-7">Drag slider for dynamic simplification.</p>
             </div>
 
           </div>
@@ -722,7 +724,7 @@
               </video>
               <!-- Notice class="video-slider" (NOT ID) -->
               <input class="video-slider" type="range" min="0" max="100" value="0" style="width:100%; margin-top:8px;">
-              <p class="is-size-7">Drag slider for dynamic abstraction.</p>
+              <p class="is-size-7">Drag slider for dynamic simplification.</p>
             </div>
           </div>
         </div>
@@ -749,7 +751,7 @@
               </video>
               <!-- Notice class="video-slider" (NOT ID) -->
               <input class="video-slider" type="range" min="0" max="100" value="0" style="width:100%; margin-top:8px;">
-              <p class="is-size-7">Drag slider for dynamic abstraction.</p>
+              <p class="is-size-7">Drag slider for dynamic simplification.</p>
             </div>
           </div>
         </div>
@@ -776,7 +778,7 @@
               </video>
               <!-- Notice class="video-slider" (NOT ID) -->
               <input class="video-slider" type="range" min="0" max="100" value="0" style="width:100%; margin-top:8px;">
-              <p class="is-size-7">Drag slider for dynamic abstraction.</p>
+              <p class="is-size-7">Drag slider for dynamic simplification.</p>
             </div>
           </div>
         </div>
@@ -784,7 +786,7 @@
 
       </div>
       <p class="is-size-6" style="margin-top:8px;">Our framework's core application is exploring a scene's visual
-        hierarchy, effectively transforming a static photograph into a dynamic abstraction "slider".</p>
+        hierarchy, effectively transforming a static photograph into a dynamic simplification "slider".</p>
 
       <br />
 
@@ -961,7 +963,7 @@
           <div class="container is-max-desktop content has-text-centered">
             <h2 class="centered-text title is-3">Acknowledgements</h2>
             <p>We thank Gitartha Goswami, Srimon Chatterjee, and Shantanu Bhattacharya for helping define our
-              abstraction taxonomy by tagging object categories and removal orders. We also thank Daniel Winter, Itzhak
+              subtractive simplification taxonomy by tagging object categories and removal orders. We also thank Daniel Winter, Itzhak
               Garbuz, Yarden Frenkel, Asaf Shul, Barak Meiri, Matan Levy, Sagi Monin, Yakir Yehuda, Tomer Golany, Bar
               Cavia, Ori
               Kelner, Yael Pritch, and Alex Rav-Acha for insightful discussions and support that improved this work.</p>
@@ -979,7 +981,7 @@
       <h2 class="title">BibTeX</h2>
       <pre><code>@article{TODO@Rosenthal2026,
       Author = {Adi Rosenthal and Dana Berman and Yedid Hoshen and Ariel Shamir},
-      Title = {Progressive Photorealistic Abstraction},
+      Title = {Progressive Photorealistic Simplification},
       Year = {2026},
       Eprint = {arXiv:TODO.TODO},
       Doi = {10.TODO/TODO.TODO},
