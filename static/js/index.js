@@ -347,14 +347,23 @@ async function loadOverlayCarousel() {
 }
 
 
-// Initialize the Abstraction Carousel
-var carousel = bulmaCarousel.attach('#abstraction-carousel', {
-    slidesToScroll: 1,
-    slidesToShow: 1,
-    loop: true,
-    infinite: true,
-    autoplay: false, // Important: False so users can use the slider
-    pagination: true,
+// Change these lines:
+var carousel3 = bulmaCarousel.attach('#top-carousel', {
+  slidesToScroll: 1,
+  slidesToShow: 1,
+  loop: true,
+  infinite: true,
+  autoplay: false,
+  pagination: true,
+});
+
+var carousel2 = bulmaCarousel.attach('#app-carousel', {
+  slidesToScroll: 1,
+  slidesToShow: 1,
+  loop: true,
+  infinite: true,
+  autoplay: true, // or false
+  pagination: true,
 });
 
 // Initialize the Abstraction Carousel
