@@ -20,6 +20,6 @@ More broadly, our work suggests that simplification through structured content r
 
 
 ## 🔥 NEWS
-**`2026/05`**: Progressive Photorealistic Abstraction was accepted to SIGGRAPH 26!
+**`2026/05`**: Progressive Photorealistic Simplification was accepted to SIGGRAPH 26!
 
 **`2026/05`**: Paper is out!
